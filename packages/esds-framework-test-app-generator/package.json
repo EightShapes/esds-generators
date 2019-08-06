@@ -1,0 +1,37 @@
+{
+  "name": "@eightshapes/esds-framework-test-app-generator",
+  "version": "0.1.0",
+  "description": "A CLI to generate a Vue|React|Angular test apps to test native web components",
+  "main": "src/index.js",
+  "bin": {
+    "create-esds-framework-test-app": "bin/create-esds-framework-test-app"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "create-esds-framework-test-app"
+  ],
+  "files": [
+    "bin/",
+    "src/",
+    "templates/"
+  ],
+  "author": "Kevin Powell <kevinmpowell@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "arg": "^4.1.1",
+    "camelcase": "^5.3.1",
+    "chalk": "^2.4.2",
+    "esm": "^3.2.25",
+    "execa": "^2.0.3",
+    "inquirer": "^6.5.0",
+    "listr": "^0.14.3",
+    "ncp": "^2.0.0",
+    "pkg-install": "^1.0.0"
+  }
+}
