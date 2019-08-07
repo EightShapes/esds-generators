@@ -22,12 +22,15 @@
         '[custom-element-name]'
       ];
 
-      new Vue({
+      const vueApp = new Vue({
         el: '#app',
         data: {
           message: 'Hello Vue.js!'
         }
       });
+
+      // To change app data dynamically in the browser run the following in the browser console:
+      // vueApp.message = 'Foo';
     </script>
   </body>
 </html>
