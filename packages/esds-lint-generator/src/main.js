@@ -5,51 +5,15 @@ import path from 'path';
 import { promisify } from 'util';
 import execa from 'execa';
 import Listr from 'listr';
-import { projectInstall } from 'pkg-install';
-import { install } from 'pkg-install';
+import { install, projectInstall } from 'pkg-install';
 
 const access = promisify(fs.access);
 const copy = promisify(ncp);
-const rename = promisify(fs.rename);
 
-function copyTemplateFiles(options) {
-  return copy(options.templateDirectory, options.targetDirectory, {
+function copyTemplateFiles(options, linterTemplateDirectory) {
+  return copy(`${options.templateDirectory}/${linterTemplateDirectory}`, options.targetDirectory, {
     clobber: true, // cli.js has already confirmed that overwriting is ok
   });
-}
-
-function injectComponentNameIntoFiles(options) {
-  const injectableTemplateFiles = [
-    'src/component-entry-legacy.js',
-    'src/component-entry.js',
-    'src/component.js',
-    'src/component.scss',
-    'rollup.config.ie.js',
-    'rollup.config.js',
-    'package.json',
-    'test/html/index.html'
-  ];
-  injectableTemplateFiles.forEach((f) => {
-    const filepath = `${options.targetDirectory}/${f}`;
-    let fileContents = fs.readFileSync(filepath);
-    fileContents = fileContents.toString().replace(/\[component-name\]/g, options.normalizedComponentName);
-    fileContents = fileContents.toString().replace(/\[ComponentName\]/g, options.pascalCaseComponentName);
-    fs.writeFileSync(filepath, fileContents, 'utf-8');
-  });
-}
-
-function renameCopiedFiles(options) {
-  const renamableTemplateFiles = [
-    'src/component-entry-legacy.js',
-    'src/component-entry.js',
-    'src/component.js',
-    'src/component.scss'
-  ];
-  renamableTemplateFiles.forEach(f => {
-    const oldPath = `${options.targetDirectory}/${f}`;
-    const newPath = oldPath.replace('src/component', `src/${options.normalizedComponentName}`);
-    rename(oldPath, newPath);
-  })
 }
 
 export async function createProject(options) {
@@ -77,11 +41,36 @@ export async function createProject(options) {
     title: 'Copy lint config files',
     task: () => {
       options.linters.forEach(l => {
-        options.templateDirectory += `/${l}`;
-        copyTemplateFiles(options);
+        copyTemplateFiles(options, l);
       });
     }
-  }
+  },
+  {
+    title: 'Installing eslint dependencies',
+    task: async () => {
+      let eslintDependencies = {
+        'eslint': undefined,
+        'eslint-plugin-sort-class-members': undefined,
+      }
+      if (options.linters.prettier) {
+        eslintDependencies = { ...eslintDependencies,
+          "eslint-config-prettier": undefined,
+          "eslint-plugin-prettier": undefined,
+          "prettier": undefined,
+        }
+      }
+
+      const { stdout } = await install(
+        eslintDependencies,
+        {
+          cwd: options.targetDirectory,
+          dev: true,
+          prefer: 'npm',
+        }
+      );
+      console.log(stdout);
+    }
+  },
 ]);
 
  await tasks.run();
