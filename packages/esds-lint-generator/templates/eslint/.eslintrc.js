@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+  extends: ['eslint:recommended'{{ ", 'plugin:prettier/recommended'" | safe if prettier }}],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -12,9 +12,10 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['sort-class-members', 'prettier'],
+  plugins: [{{ "'sort-class-members', " | safe if sortClassMembers }}{{ "'prettier', " | safe if prettier }}],
   rules: {
     'linebreak-style': ['error', 'unix'],
+    {%- if sortClassMembers %}
     'sort-class-members/sort-class-members': [
       2,
       {
@@ -56,5 +57,6 @@ module.exports = {
         accessorPairPositioning: 'getThenSet',
       },
     ],
+    {%- endif -%}
   },
 };

@@ -11,7 +11,7 @@ const access = promisify(fs.access);
 const copy = promisify(ncp);
 const rename = promisify(fs.rename);
 
-function copyTemplateFiles(options) {
+async function copyTemplateFiles(options) {
  return copy(options.templateDirectory, options.targetDirectory, {
    clobber: false,
  });
