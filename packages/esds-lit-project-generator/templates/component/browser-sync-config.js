@@ -2,5 +2,5 @@ module.exports = {
   server: {
     baseDir: "./",
   },
-  startPath: "/test/index.html",
+  startPath: "/test/html/index.html",
 }
