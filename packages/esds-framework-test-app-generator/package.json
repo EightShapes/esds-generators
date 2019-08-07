@@ -1,6 +1,6 @@
 {
   "name": "@eightshapes/esds-framework-test-app-generator",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A CLI to generate a Vue|React|Angular test apps to test native web components",
   "main": "src/index.js",
   "bin": {
