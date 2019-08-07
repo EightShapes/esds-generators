@@ -2,20 +2,20 @@
 <html>
   <head>
     <!-- No Shadow DOM, so link directly to styles -->
-    <link rel="stylesheet" href="../dist/[component-name].css"/>
+    <link rel="stylesheet" href="../../dist/[component-name].css"/>
 
     <!-- Enable <slot> functionality of lit-element without using ShadowDOM -->
     <script>
       window.ShadyDOM = { force: true };
     </script>
     <!-- Separate webcomponents polyfill bundle for Edge, IE11, etc. -->
-    <script type="text/javascript" src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script type="text/javascript" src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 
     <!-- The ESM "vanilla" version of the component for FF, Safari, Chrome and Edge -->
-    <script type="module" src="../dist/[component-name].js"></script>
+    <script type="module" src="../../dist/[component-name].js"></script>
 
     <!-- A babel-compiled version of the component for IE11 -->
-    <script nomodule type="text/javascript" src="../dist/[component-name]-legacy.js"></script>
+    <script nomodule type="text/javascript" src="../../dist/[component-name]-legacy.js"></script>
   </head>
   <body>
     <h1>Welcome to your new web component.</h1>
