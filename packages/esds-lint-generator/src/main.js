@@ -58,11 +58,11 @@ export async function createProject(options) {
       },
     },
     {
-      title: 'Modifying lint config files',
+      title: 'Modify lint config files',
       task: () => modifyConfigFiles(options),
     },
     {
-      title: 'Installing eslint dependencies',
+      title: 'Install eslint dependencies',
       task: async () => {
         let eslintDependencies = {
           eslint: undefined,
