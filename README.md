@@ -9,18 +9,21 @@ Includes rollup for Lit Element Builds, browser sync to run a local dev environm
 ```
 npx @eightshapes/esds-lit-element-project-generator
 ```
+---
 
 ### Framework Test App Generator
 Creates a simple Vue (for now, React & Angular coming) app harness to test vanilla web components.  
 ```
 npx @eightshapes/esds-framework-test-app-generator
 ```
+---
 
 ### Lint Generator
 Allows a choice of sass-lint, eslint, and/or prettier. Adds config and installs necessary packages to support linting.  
 ```
 npx @eightshapes/esds-lint-generator
 ```
+---
 
 ### Token compiler
 Given a source .yaml file and a token namespace this cli will convert the yaml file to .json and .scss formats and output the results to the specified `dest`.
