@@ -4,7 +4,7 @@ import { compileTokens } from './main';
 function parseArgumentsIntoOptions(rawArgs) {
   const args = arg(
     {
-      '--source': String,
+      '--src': String,
       '--dest': String,
       '--format': [String],
       '--token-namespace': String,
@@ -15,7 +15,7 @@ function parseArgumentsIntoOptions(rawArgs) {
   );
   // TODO: Add --watch flag
   return {
-    source: args['--source'] || 'tokens/tokens.yaml',
+    source: args['--src'] || 'tokens/tokens.yaml',
     tokenNamespace: args['--token-namespace'] || 'esds',
     dest: args['--dest'] || 'tokens',
     formats: args['--format'] || ['scss', 'json'],

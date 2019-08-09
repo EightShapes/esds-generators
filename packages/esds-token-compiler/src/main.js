@@ -193,6 +193,10 @@ function writeTokensScssFile(tokens, yamlFileName, options) {
     '    }\n' +
     '    @return $map;\n' +
     '}\n';
+
+  if (!fs.existsSync(options.dest)) {
+    mkdirp.sync(options.dest);
+  }
   fs.writeFileSync(scssOutputFilepath, scss);
 }
 
