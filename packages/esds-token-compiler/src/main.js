@@ -1,9 +1,11 @@
 import { flatten } from 'flat';
+import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
 import jsBeautify from 'js-beautify';
 import mkdirp from 'mkdirp';
 import yaml from 'yamljs';
+import Listr from 'listr';
 
 function tokensToJson(sourceFile) {
   let tokens = {},
@@ -17,10 +19,8 @@ function tokensToJson(sourceFile) {
     }
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.log(
-      e,
-      `Warning: Could not parse tokens file ${sourceFile} into JSON`,
-    );
+    tokens = false;
+    console.log(chalk.red(`${e.message}\n${e.parsedLine}`));
   }
   return tokens;
 }
@@ -80,18 +80,6 @@ function interpolateYamlVariables(rawYaml) {
   }
 
   return rawYaml;
-}
-
-function tokensSourceFileExists(sourceFile) {
-  if (fs.existsSync(sourceFile)) {
-    return true;
-  } else {
-    // eslint-disable-next-line no-console
-    console.log(
-      `Warning: ${sourceFile} cannot be found, token files not built`,
-    );
-    return false;
-  }
 }
 
 function writeTokensJsonFile(tokens, yamlFileName, options) {
@@ -201,20 +189,46 @@ function writeTokensScssFile(tokens, yamlFileName, options) {
 }
 
 export async function compileTokens(options) {
-  const sourceFile = `${process.cwd()}/${options.source}`;
-  if (tokensSourceFileExists(sourceFile)) {
-    let tokens = tokensToJson(sourceFile);
-    options.formats.forEach(format => {
-      switch (format) {
-        case 'json':
-          tokens.namespace = options.tokenNamespace;
-          writeTokensJsonFile(tokens, path.basename(sourceFile), options);
-          break;
-        case 'scss':
-          tokens.namespace = '"' + options.tokenNamespace + '"';
-          writeTokensScssFile(tokens, path.basename(sourceFile), options);
-          break;
-      }
-    });
+  const sourceFile = options.sourceFile;
+  let tokens;
+  const tasks = new Listr([
+    {
+      title: 'Parse Tokens',
+      task: () => {
+        tokens = tokensToJson(sourceFile);
+        if (!tokens) {
+          throw new Error(chalk.red('Tokens file could not be parsed'));
+        }
+      },
+    },
+    {
+      title: 'Create scss tokens',
+      skip: () => !options.formats.includes('scss'),
+      task: () => {
+        tokens.namespace = '"' + options.tokenNamespace + '"';
+        writeTokensScssFile(tokens, path.basename(sourceFile), options);
+      },
+    },
+    {
+      title: 'Create json tokens',
+      skip: () => !options.formats.includes('json'),
+      task: () => {
+        tokens.namespace = options.tokenNamespace;
+        writeTokensJsonFile(tokens, path.basename(sourceFile), options);
+      },
+    },
+  ]);
+
+  try {
+    await tasks.run();
+    console.log(chalk.green('Tokens compiled.'), chalk.green.bold('SUCCESS'));
+    return true;
+  } catch (err) {
+    console.log(chalk.red.bold(err));
+    if (options.watch) {
+      return true; // If --watch was passed, return true to keep the watcher running
+    } else {
+      process.exit(1);
+    }
   }
 }
