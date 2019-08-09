@@ -38,13 +38,13 @@ Then run in your project via npm:
 `npm run compile-tokens`
 
 ### CLI Parameters
-| Parameter | Description | Default |
+| Parameter | Default | Description |
 | --- | --- | --- |
-| `--src` | The path to the source yaml file containing tokens to be compiled. | `tokens/tokens.yaml` |
-| `--dest` | The path to a directory where compiled tokens should be created. The generator will create this directory if it does not exist. | `tokens` - The defaults will write compiled tokens to the same directory as the source yaml file. |
-| `--token-namespace` | The prefix to be added to all tokens. For example a value of `mds` will result in scss variable names like `$mds-color-black`, and `$mds-font-size-1x`. | `esds` |
-| `--format` | The desired output formats for tokens. `--format` can be specified multiple times to generate multiple formats. By default JSON and SCSS outputs will be created. | `['scss', 'json']` |
-| `--watch` | If provided, the source yaml file will be watched and changes to that file will re-trigger the compilation process. | `false` |
+| `--src` | `tokens/tokens.yaml` | The path to the source yaml file containing tokens to be compiled. |
+| `--dest` | `tokens` - The defaults will write compiled tokens to the same directory as the source yaml file. | The path to a directory where compiled tokens should be created. The generator will create this directory if it does not exist. |
+| `--token-namespace` | `esds` | The prefix to be added to all tokens. For example a value of `mds` will result in scss variable names like `$mds-color-black`, and `$mds-font-size-1x`. |
+| `--format` | `['scss', 'json']` | The desired output formats for tokens. `--format` can be specified multiple times to generate multiple formats. By default JSON and SCSS outputs will be created. |
+| `--watch` | `false` | If provided, the source yaml file will be watched and changes to that file will re-trigger the compilation process.  |
 
 #### CLI Usage Examples
 To watch a source file and generate only scss:
