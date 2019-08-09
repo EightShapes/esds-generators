@@ -29,13 +29,35 @@ package.json
 
 {
   "scripts": {
-    "compile-tokens": "compile-tokens --src=path/to/tokens.yaml` --dest=path/to/desired/destination --token-namespace=myds"
+    "compile-tokens": "compile-tokens --watch --src=path/to/tokens.yaml` --dest=path/to/desired/destination --token-namespace=myds --format=json --format=scss"
   }
 }
 ```
 
 Then run in your project via npm:  
 `npm run compile-tokens`
+
+### CLI Parameters
+| Parameter | Description | Default |
+| --- | --- | --- |
+| `--src` | The path to the source yaml file containing tokens to be compiled. | `tokens/tokens.yaml` |
+| `--dest` | The path to a directory where compiled tokens should be created. The generator will create this directory if it does not exist. | `tokens` - The defaults will write compiled tokens to the same directory as the source yaml file. |
+| `--token-namespace` | The prefix to be added to all tokens. For example a value of `mds` will result in scss variable names like `$mds-color-black`, and `$mds-font-size-1x`. | `esds` |
+| `--format` | The desired output formats for tokens. `--format` can be specified multiple times to generate multiple formats. By default JSON and SCSS outputs will be created. | `['scss', 'json']` |
+| `--watch` | If provided, the source yaml file will be watched and changes to that file will re-trigger the compilation process. | `false` |
+
+#### CLI Usage Examples
+To watch a source file and generate only scss:
+
+```
+compile-tokens --watch --format=scss --src=/my/tokens-directory/mytokens.yaml --dest=/my/tokens-directory
+```
+
+Generating JSON, no watching with a namespace of "zds".
+
+```
+compile-tokens --format=json --src=tokens.yaml --dest=./ --token-namespace=zds
+```
 
 ## Source file format and output
 Given a `--token-namespace=esds` arg and a `tokens.yaml` file like this:
