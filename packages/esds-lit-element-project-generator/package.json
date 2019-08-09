@@ -1,6 +1,6 @@
 {
   "name": "@eightshapes/esds-lit-element-project-generator",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A CLI to generate Lit Element based Web Component Projects",
   "main": "src/index.js",
   "bin": {
