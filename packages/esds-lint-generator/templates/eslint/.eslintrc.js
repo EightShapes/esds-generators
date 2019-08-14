@@ -22,6 +22,7 @@ module.exports = {
         order: [
           '[static-methods]',
           'constructor',
+          'createRenderRoot',
           'firstUpdated',
           'updated',
           'updateComplete',
