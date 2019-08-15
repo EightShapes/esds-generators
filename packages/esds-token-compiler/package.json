@@ -22,7 +22,7 @@
     "bin/",
     "src/"
   ],
-  "author": "Kevin Powell <kevinmpowell@gmail.com>",
+  "author": "Kevin Powell <kevin@eightshapes.com>",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^6.1.0",

@@ -12,6 +12,8 @@ function parseArgumentsIntoOptions(rawArgs) {
       '--format': [String],
       '--token-namespace': String,
       '--watch': Boolean,
+      '--jsonOutputFilename': String,
+      '--scssOutputFilename': String,
     },
     {
       argv: rawArgs.slice(2),
@@ -24,6 +26,8 @@ function parseArgumentsIntoOptions(rawArgs) {
     dest: args['--dest'] || 'tokens',
     formats: args['--format'] || ['scss', 'json'],
     watch: args['--watch'] || false,
+    scssOutputFilename: args['--scssOutputFilename'] || false,
+    jsonOutputFilename: args['--jsonOutputFilename'] || false,
   };
 }
 

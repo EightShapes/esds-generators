@@ -83,7 +83,8 @@ function interpolateYamlVariables(rawYaml) {
 }
 
 function writeTokensJsonFile(tokens, yamlFileName, options) {
-  const jsonOutputFilename = path.parse(yamlFileName).name + '.json',
+  const jsonOutputFilename =
+      options.jsonOutputFilename || path.parse(yamlFileName).name + '.json',
     jsonOutputFilepath = path.join(
       process.cwd(),
       options.dest,
@@ -150,7 +151,8 @@ function generateScssMapSection(node, indentationLevel, variablePrefix) {
 }
 
 function writeTokensScssFile(tokens, yamlFileName, options) {
-  const scssOutputFilename = path.parse(yamlFileName).name + '.scss',
+  const scssOutputFilename =
+      options.scssOutputFilename || path.parse(yamlFileName).name + '.scss',
     scssOutputFilepath = path.join(
       process.cwd(),
       options.dest,

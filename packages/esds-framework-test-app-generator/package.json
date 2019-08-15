@@ -21,7 +21,7 @@
     "src/",
     "templates/"
   ],
-  "author": "Kevin Powell <kevinmpowell@gmail.com>",
+  "author": "Kevin Powell <kevin@eightshapes.com>",
   "license": "MIT",
   "dependencies": {
     "arg": "^4.1.1",

@@ -45,6 +45,8 @@ Then run in your project via npm:
 | `--token-namespace` | `esds` | The prefix to be added to all tokens. For example a value of `mds` will result in scss variable names like `$mds-color-black`, and `$mds-font-size-1x`. |
 | `--format` | `['scss', 'json']` | The desired output formats for tokens. `--format` can be specified multiple times to generate multiple formats. By default JSON and SCSS outputs will be created. |
 | `--watch` | `false` | If provided, the source yaml file will be watched and changes to that file will re-trigger the compilation process.  |
+| `--scssOutputFilename` | `false` | If provided, this is the name of the compiled `.scss` file. This will be combined with the `--dest` arg to generate the full output filepath. By default the name of the `--src` file will be used as the name for the compiled `.scss` file |
+| `--jsonOutputFilename` | `false` | If provided, this is the name of the compiled `.json` file. This will be combined with the `--dest` arg to generate the full output filepath. By default the name of the `--src` file will be used as the name for the output `.json` file |
 
 #### CLI Usage Examples
 To watch a source file and generate only scss:
