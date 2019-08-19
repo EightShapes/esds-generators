@@ -180,12 +180,14 @@ function addAvrFilesToGitignore(options) {
       filename: 'backstop-runtime-config.json',
       regex: /^backstop-runtime-config\.json/gm
     },
-    { filename: `${options.testDirectory}/backstop_data`,
-      regex: new RegExp(`^${options.testDirectory}\/backstop_data$`, 'gm')
+    { filename: `${options.testDirectory}/backstop_data/bitmaps_test`,
+      regex: new RegExp(`^${options.testDirectory}\/backstop_data\/bitmaps_test$`, 'gm')
     },
-    {
-      filename: `${options.testDirectory}/!backstop_data/bitmaps_reference`,
-      regex: new RegExp(`^${options.testDirectory}\/!backstop_data\/bitmaps_reference$`, 'gm')
+    { filename: `${options.testDirectory}/backstop_data/json_report`,
+      regex: new RegExp(`^${options.testDirectory}\/backstop_data\/json_report$`, 'gm')
+    },
+    { filename: `${options.testDirectory}/backstop_data/html_report`,
+      regex: new RegExp(`^${options.testDirectory}\/backstop_data\/html_report$`, 'gm')
     },
   ];
 
