@@ -33,7 +33,7 @@ const localConfig = {
   report: ['html', 'json'],
   engine: 'puppeteer',
   engineOptions: {
-    args: ['--no-sandbox'],
+    args: ['--no-sandbox']
   },
   asyncCaptureLimit: 5,
   asyncCompareLimit: 50,

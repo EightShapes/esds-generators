@@ -240,7 +240,7 @@ export async function generateAvrConfig(options) {
       task: async () => {
         let avrDependencies = {
           backstopjs: '^4.1.12', // Version locking until this issue is reopened and resolved: https://github.com/garris/BackstopJS/issues/1059
-          '@eightshapes/esds-avr': undefined, // Self installing when `npx @eightshapes/esds-avr --init` is invoked 
+          '@eightshapes/esds-avr-generator': undefined, // Self installing when `npx @eightshapes/esds-avr --init` is invoked 
         };
 
         const { stdout } = await install(avrDependencies, {

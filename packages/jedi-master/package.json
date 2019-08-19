@@ -21,7 +21,6 @@
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
-    "@eightshapes/esds-avr-generator": "0.1.0",
     "@webcomponents/webcomponentsjs": "^2.2.10",
     "backstopjs": "^4.1.12",
     "eslint": "^6.2.0",
