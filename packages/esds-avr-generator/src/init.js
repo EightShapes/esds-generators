@@ -167,6 +167,37 @@ function modifyTemplateFiles(options) {
   });
 }
 
+function addAvrFilesToGitignore(options) {
+  const gitIgnoreFilePath = path.join(process.cwd(), '.gitignore');
+  let gitIgnoreContents = '';
+
+  if (fs.existsSync(gitIgnoreFilePath)) {
+    gitIgnoreContents = fs.readFileSync(gitIgnoreFilePath, 'UTF-8');
+  }
+
+  const gitIgnoreRegexes = [
+    {
+      filename: 'backstop-runtime-config.json',
+      regex: /^backstop-runtime-config\.json/gm
+    },
+    { filename: `${options.testDirectory}/backstop_data`,
+      regex: new RegExp(`^${options.testDirectory}\/backstop_data$`, 'gm')
+    },
+    {
+      filename: `${options.testDirectory}/!backstop_data/bitmaps_reference`,
+      regex: new RegExp(`^${options.testDirectory}\/!backstop_data\/bitmaps_reference$`, 'gm')
+    },
+  ];
+
+  gitIgnoreRegexes.forEach(r => {
+    if (!gitIgnoreContents.match(r.regex)) {
+      gitIgnoreContents += `\n${r.filename}`;
+    }
+  });
+
+  fs.writeFileSync(gitIgnoreFilePath, gitIgnoreContents, 'UTF-8');
+}
+
 export async function generateAvrConfig(options) {
   options = {
     ...options,
@@ -198,10 +229,8 @@ export async function generateAvrConfig(options) {
     },
     {
       title: 'Update .gitignore',
-      task: () => {
-        // TODO: Update .gitignore to exclude runtime config and backstop_data files
-      }
-    }
+      task: () => addAvrFilesToGitignore(options)
+    },
     {
       title: 'Install AVR dependencies',
       task: async () => {

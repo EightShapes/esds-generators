@@ -1,0 +1,4 @@
+node_modules
+!backstop_data/bitmaps_reference
+test/backstop_data
+test/!backstop_data/bitmaps_reference
