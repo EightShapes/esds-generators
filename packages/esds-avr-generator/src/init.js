@@ -55,7 +55,7 @@ export async function askAvrQuestions() {
     },
     {
       type: 'confirm',
-      name: 'dockerUsage',
+      name: 'docker',
       message: `Would you like to run your tests in a Docker instance? (requires Docker (free) to be installed locally)`,
       default: false,
     },
@@ -237,7 +237,7 @@ export async function generateAvrConfig(options) {
       title: 'Install AVR dependencies',
       task: async () => {
         let avrDependencies = {
-          backstopjs: '4.0.3' // Intentionally version locking until this issue is resolved: https://github.com/garris/BackstopJS/issues/1059
+          backstopjs: '^4.1.12', // Version locking until this issue is reopened and resolved: https://github.com/garris/BackstopJS/issues/1059
         };
 
         const { stdout } = await install(avrDependencies, {
@@ -251,6 +251,10 @@ export async function generateAvrConfig(options) {
   ]);
 
   await tasks.run();
+
+  // TODO: Add instructions - if Docker, install Docker Desktop
+  // Run --reference to generate initial baseline Images
+  // Run --test to test
 
   console.log(`%s AVR config generation successful.`, chalk.green.bold('DONE'));
   return true;

@@ -1,11 +1,12 @@
-import { startLocalServerSync, createAvrRuntimeConfig } from './startServer.js';
+import { startLocalServerSync, createAvrRuntimeConfig } from './shared.js';
 import chalk from 'chalk';
 import execa from 'execa';
 import Listr from 'listr';
 import open from 'open';
-const backstopConfig = require(`${process.cwd()}/backstop.js`);
 
 export async function runAvrTests(options) {
+  const backstopConfig = require(`${process.cwd()}/backstop.js`);
+  console.log(options);
   let localEnv;
   const tasks = new Listr([
     {
@@ -23,7 +24,9 @@ export async function runAvrTests(options) {
       task: async () => {
         try {
           const { stdout } = await execa.command(
-            `cd ${process.cwd()} && npx backstop test --config=backstop.js`,
+            `cd ${process.cwd()} && npx backstop test --config=backstop.js ${
+              options.docker || backstopConfig.dockerDefault ? ' --docker' : ''
+            }${options.filter ? ` --filter=${options.filter}` : ''}`,
             { shell: true },
           );
           console.log(stdout);
@@ -48,6 +51,6 @@ export async function runAvrTests(options) {
 
   await tasks.run();
 
-  console.log(`%s AVR test run successful.`, chalk.green.bold('DONE'));
+  console.log(`%s AVR test run successful.`, chalk.green.bold('COMPLETE'));
   return true;
 }

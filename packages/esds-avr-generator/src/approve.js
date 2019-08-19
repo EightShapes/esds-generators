@@ -2,14 +2,16 @@ import chalk from 'chalk';
 import execa from 'execa';
 import Listr from 'listr';
 
-export async function approveChanges() {
+export async function approveChanges(options) {
   const tasks = new Listr([
     {
       title: 'Promote New AVR Reference Images',
       task: async () => {
         try {
           const { stdout } = await execa.command(
-            `cd ${process.cwd()} && npx backstop approve --config=backstop.js`,
+            `cd ${process.cwd()} && npx backstop approve --config=backstop.js${
+              options.filter ? ` --filter=${options.filter}` : ''
+            }`,
             { shell: true },
           );
           console.log(stdout);

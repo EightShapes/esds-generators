@@ -26,10 +26,12 @@ export function startLocalServerSync() {
 }
 
 export function createAvrRuntimeConfig(localEnv, options) {
+  const backstopConfig = require(`${process.cwd()}/backstop.js`);
+  const docker = options.docker || backstopConfig.dockerDefault;
+
   const runtimeConfig = {
     testingPort: localEnv.getOption('port'),
-    baseConfig: {},
-    hostUrl: options.docker ? 'host.docker.internal' : 'localhost',
+    hostUrl: docker ? 'host.docker.internal' : 'localhost',
   };
 
   const runtimeConfigPath = path.join(

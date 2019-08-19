@@ -3912,7 +3912,7 @@ LitElement['finalized'] = true;
 LitElement.render = render$1;
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n      <h1 class=\"jedi-master\">Hi, I'm the jedi-master component.</h1>\n    "]);
+  var data = _taggedTemplateLiteral(["\n      <h1 class=\"jedi-master\">\n        Hi, I'm the jedi-master component. And I've Changed.\n      </h1>\n    "]);
 
   _templateObject = function _templateObject() {
     return data;

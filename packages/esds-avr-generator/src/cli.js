@@ -12,7 +12,7 @@ function parseArgumentsIntoOptions(rawArgs) {
       '--reference': Boolean,
       '--test': Boolean,
       '--approve': Boolean,
-      '--scope': String,
+      '--filter': String,
       '--docker': Boolean,
     },
     {
@@ -24,8 +24,8 @@ function parseArgumentsIntoOptions(rawArgs) {
     reference: args['--reference'] || false,
     test: args['--test'] || false,
     approve: args['--approve'] || false,
-    scope: args['--scope'],
-    docker: args['--docker'] || false,
+    filter: args['--filter'],
+    docker: args['--docker'],
   };
 }
 
@@ -40,7 +40,7 @@ export async function cli(args) {
   } else if (options.test) {
     return await runAvrTests(options);
   } else if (options.approve) {
-    return await approveChanges();
+    return await approveChanges(options);
   } else {
     console.log(
       "This CLI doesn't do anything else yet. Please run with the '--init' flag in order to generate an AVR config.",

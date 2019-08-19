@@ -31,10 +31,14 @@ const localConfig = {
     ci_report: '{{ testDirectory }}/backstop_data/ci_report',
   },
   report: ['html', 'json'],
-  engine: 'chrome',
-  docker: runtimeConfig.docker,
+  engine: 'puppeteer',
+  engineOptions: {
+    args: ['--no-sandbox']
+  },
+  asyncCaptureLimit: 5,
+  asyncCompareLimit: 50,
   dockerCommandTemplate:
-    'docker run --shm-size=2gb --rm -it --mount type=bind,source="{cwd}",target=/src backstopjs/backstopjs:{version} {backstopCommand} {args}',
+    'docker run --shm-size=2gb --rm -i --mount type=bind,source="{cwd}",target=/src backstopjs/backstopjs:{version} {backstopCommand} {args}',
 };
 
-module.exports = { ...runtimeConfig.baseConfig, ...localConfig };
+module.exports = { ...localConfig, dockerDefault: {{ docker }} };
