@@ -3,6 +3,7 @@ import arg from 'arg';
 import { askAvrQuestions, generateAvrConfig } from './init.js';
 import { createReferenceImages } from './reference.js';
 import { runAvrTests } from './test.js';
+import { approveChanges } from './approve.js';
 
 function parseArgumentsIntoOptions(rawArgs) {
   const args = arg(
@@ -10,6 +11,7 @@ function parseArgumentsIntoOptions(rawArgs) {
       '--init': Boolean,
       '--reference': Boolean,
       '--test': Boolean,
+      '--approve': Boolean,
       '--scope': String,
       '--docker': Boolean,
     },
@@ -21,6 +23,7 @@ function parseArgumentsIntoOptions(rawArgs) {
     init: args['--init'] || false,
     reference: args['--reference'] || false,
     test: args['--test'] || false,
+    approve: args['--approve'] || false,
     scope: args['--scope'],
     docker: args['--docker'] || false,
   };
@@ -36,6 +39,8 @@ export async function cli(args) {
     return await createReferenceImages(options);
   } else if (options.test) {
     return await runAvrTests(options);
+  } else if (options.approve) {
+    return await approveChanges();
   } else {
     console.log(
       "This CLI doesn't do anything else yet. Please run with the '--init' flag in order to generate an AVR config.",
