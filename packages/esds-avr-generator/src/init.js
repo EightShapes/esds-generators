@@ -237,7 +237,7 @@ export async function generateAvrConfig(options) {
       title: 'Install AVR dependencies',
       task: async () => {
         let avrDependencies = {
-          backstopjs: undefined
+          backstopjs: '4.0.3' // Intentionally version locking until this issue is resolved: https://github.com/garris/BackstopJS/issues/1059
         };
 
         const { stdout } = await install(avrDependencies, {

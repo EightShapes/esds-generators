@@ -27,9 +27,10 @@ const localConfig = {
     bitmaps_test: '{{ testDirectory }}/backstop_data/bitmaps_test',
     engine_scripts: '{{ testDirectory }}/backstop_data/engine_scripts',
     html_report: '{{ testDirectory }}/backstop_data/html_report',
+    json_report: '{{ testDirectory }}/backstop_data/json_report',
     ci_report: '{{ testDirectory }}/backstop_data/ci_report',
   },
-  report: ['browser', 'json'],
+  report: ['html', 'json'],
   engine: 'chrome',
   docker: runtimeConfig.docker,
   dockerCommandTemplate:
