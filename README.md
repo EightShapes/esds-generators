@@ -29,3 +29,6 @@ npx @eightshapes/esds-lint-generator
 Given a source .yaml file and a token namespace this cli will convert the yaml file to .json and .scss formats and output the results to the specified `dest`.
 
 [Further Documentation Here](https://github.com/EightShapes/esds-generators/tree/master/packages/esds-token-compiler)
+
+### AVR Generator
+[Further Documentation Here](https://github.com/EightShapes/esds-generators/tree/master/packages/esds-avr-generator)
