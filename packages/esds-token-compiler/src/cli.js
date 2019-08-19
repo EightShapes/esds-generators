@@ -19,7 +19,6 @@ function parseArgumentsIntoOptions(rawArgs) {
       argv: rawArgs.slice(2),
     },
   );
-  // TODO: Add --watch flag
   return {
     source: args['--src'] || 'tokens/tokens.yaml',
     tokenNamespace: args['--token-namespace'] || 'esds',
