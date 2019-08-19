@@ -26,6 +26,19 @@ export function startLocalServerSync() {
 }
 
 export function createAvrRuntimeConfig(localEnv, options) {
+  const runtimeConfigPath = path.join(
+    process.cwd(),
+    'backstop-runtime-config.json',
+  );
+
+  if (!fs.existsSync(runtimeConfigPath)) {
+    // No runtime config, generate an empty one so backstop.js can be loaded
+    fs.writeFileSync(
+      runtimeConfigPath,
+      JSON.stringify({ testingPort: 100, hostUrl: 'test' }),
+      'UTF-8',
+    );
+  }
   const backstopConfig = require(`${process.cwd()}/backstop.js`);
   const docker = options.docker || backstopConfig.dockerDefault;
 
@@ -33,11 +46,6 @@ export function createAvrRuntimeConfig(localEnv, options) {
     testingPort: localEnv.getOption('port'),
     hostUrl: docker ? 'host.docker.internal' : 'localhost',
   };
-
-  const runtimeConfigPath = path.join(
-    process.cwd(),
-    'backstop-runtime-config.json',
-  );
 
   fs.writeFileSync(runtimeConfigPath, JSON.stringify(runtimeConfig), 'UTF-8');
 }

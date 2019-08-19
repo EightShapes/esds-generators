@@ -5,7 +5,7 @@ import Listr from 'listr';
 import open from 'open';
 
 export async function runAvrTests(options) {
-  const backstopConfig = require(`${process.cwd()}/backstop.js`);
+  let backstopConfig;
   let localEnv;
   const tasks = new Listr([
     {
@@ -21,6 +21,7 @@ export async function runAvrTests(options) {
     {
       title: 'Run AVR Tests',
       task: async () => {
+        backstopConfig = require(`${process.cwd()}/backstop.js`); // Don't require this until after runtime config is created
         try {
           const { stdout } = await execa.command(
             `cd ${process.cwd()} && npx backstop test --config=backstop.js ${

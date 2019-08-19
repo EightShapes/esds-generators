@@ -4,7 +4,6 @@ import execa from 'execa';
 import Listr from 'listr';
 
 export async function createReferenceImages(options) {
-  const backstopConfig = require(`${process.cwd()}/backstop.js`);
   let localEnv;
   const tasks = new Listr([
     {
@@ -21,6 +20,7 @@ export async function createReferenceImages(options) {
       title: 'Create AVR Reference Images',
       task: async () => {
         try {
+          const backstopConfig = require(`${process.cwd()}/backstop.js`); // Don't require this until after runtime config is created
           const { stdout } = await execa.command(
             `cd ${process.cwd()} && npx backstop reference --config=backstop.js${
               options.docker || backstopConfig.dockerDefault ? ' --docker' : ''
