@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <script src="https://unpkg.com/vue"></script>
+    <script type="module" src="../..//dist/jedi-master.js"></script>
+  </head>
+  <body>
+    <!--
+      To wire up Vue data to your custom element use the following syntax:
+      <myds-button :text="message"></myds-button>
+
+      Where 'text' is a prop supported by your button template.
+
+      To test <slot> functionality within your component use the following syntax:
+      <myds-button>{{ message }}</myds-button>
+     -->
+    <div id="app">
+      <p>{{ message }}</p>
+      <jedi-master></jedi-master>
+    </div>
+    <script>
+      Vue.config.ignoredElements = [
+        'jedi-master'
+      ];
+
+      const vueApp = new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello Vue.js!'
+        }
+      });
+
+      // To change app data dynamically in the browser run the following in the browser console:
+      // vueApp.message = 'Foo';
+    </script>
+  </body>
+</html>
