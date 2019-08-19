@@ -43,8 +43,7 @@ export async function cli(args) {
     return await approveChanges(options);
   } else {
     console.log(
-      "This CLI doesn't do anything else yet. Please run with the '--init' flag in order to generate an AVR config.",
+      "This CLI must be run with one of the following flags: '--init', '--test', '--reference', '--approve'.",
     );
-    // await generateAvrConfig(options);
   }
 }

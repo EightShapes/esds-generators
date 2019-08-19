@@ -7,6 +7,7 @@ import glob from 'glob';
 import nunjucks from 'nunjucks';
 import Listr from 'listr';
 import { install } from 'pkg-install';
+import { js as jsBeautify } from 'js-beautify';
 
 
 function checkForExistingFiles(filesToBeWritten) {
@@ -127,19 +128,6 @@ export async function askAvrQuestions() {
   return {
     ...answers,
   };
-  // Based on questions:
-  // Generate backstop.config.js w/scenarios based on test wrapper, test file/directory
-  // Generate three npm scripts, each calling esds-avr
-  // The first, no flags - runs tests based on backstop.config
-  // The second, --reference - creates reference images
-  // The third, --approve - approves reference images
-  //
-  // Installations needed:
-  // backstopJS
-  // browsersync
-  // At the end:
-  // Notify config has been built
-  // Message heavily that Docker needs to be installed if they want to use Docker
 }
 
 
@@ -158,7 +146,7 @@ function copyTemplateFiles(options) {
 function modifyTemplateFiles(options) {
   nunjucksBasedConfigFiles.forEach(async f => {
     const filepath = `${options.targetDirectory}/${f}`;
-    const fileContents = fs.readFileSync(filepath);
+    const fileContents = fs.readFileSync(filepath, 'UTF-8');
     const interpolatedContent = await nunjucks.renderString(
       fileContents.toString(),
       options,
@@ -198,6 +186,20 @@ function addAvrFilesToGitignore(options) {
   });
 
   fs.writeFileSync(gitIgnoreFilePath, gitIgnoreContents, 'UTF-8');
+}
+
+function addNpmScriptShortcuts(options) {
+  const packageJsonPath = path.join(options.targetDirectory, 'package.json');
+  const packageJson = require(packageJsonPath);
+  if (!packageJson.scripts) {
+    packageJson.scripts = {};
+  }
+
+  packageJson.scripts['avr-test'] = 'npx esds-avr --test';
+  packageJson.scripts['avr-reference'] = 'npx esds-avr --reference';
+  packageJson.scripts['avr-approve'] = 'npx esds-avr --approve';
+
+  fs.writeFileSync(packageJsonPath, jsBeautify(JSON.stringify(packageJson), { indent_size: 2 }), 'UTF-8');
 }
 
 export async function generateAvrConfig(options) {
@@ -248,6 +250,10 @@ export async function generateAvrConfig(options) {
         console.log(stdout);
       },
     },
+    {
+      title: 'Add NPM script shortcuts',
+      task: async() => addNpmScriptShortcuts(options)
+    }
   ]);
 
   await tasks.run();

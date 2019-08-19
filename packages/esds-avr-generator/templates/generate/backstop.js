@@ -1,7 +1,7 @@
 const runtimeConfig = require('./backstop-runtime-config.json');
 const packageConfig = require('./package.json');
 const urlBase = `http://${runtimeConfig.hostUrl}:${runtimeConfig.testingPort}`;
-const testPaths = ['{{ testPaths | join ("', '") | safe }}'];
+const testPaths = ['{{ testPaths | join ("', '") | safe if testPaths }}'];
 
 const scenarios = testPaths.map(p => ({
   label: p,

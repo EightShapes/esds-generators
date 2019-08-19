@@ -12,7 +12,10 @@
     "watch-build": "npm run watch-build-ie | npm run watch-build-esm | npm run watch-build-styles",
     "watch-build-ie": "rollup --watch -c rollup.config.ie.js",
     "watch-build-esm": "rollup --watch -c rollup.config.js",
-    "watch-build-styles": "sass src:dist --watch"
+    "watch-build-styles": "sass src:dist --watch",
+    "avr-test": "npx esds-avr --test",
+    "avr-reference": "npx esds-avr --reference",
+    "avr-approve": "npx esds-avr --approve"
   },
   "license": "MIT",
   "devDependencies": {

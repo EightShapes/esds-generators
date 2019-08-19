@@ -6,7 +6,6 @@ import open from 'open';
 
 export async function runAvrTests(options) {
   const backstopConfig = require(`${process.cwd()}/backstop.js`);
-  console.log(options);
   let localEnv;
   const tasks = new Listr([
     {

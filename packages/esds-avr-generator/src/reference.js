@@ -29,7 +29,6 @@ export async function createReferenceImages(options) {
           );
           console.log(stdout);
         } catch (err) {
-          // console.log(err);
           localEnv.exit();
           throw new Error(err.stderr);
         }
