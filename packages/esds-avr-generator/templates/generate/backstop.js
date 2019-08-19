@@ -23,14 +23,15 @@ const localConfig = {
   ],
   scenarios: scenarios,
   paths: {
-    bitmaps_reference: 'backstop_data/bitmaps_reference',
-    bitmaps_test: 'backstop_data/bitmaps_test',
-    engine_scripts: 'backstop_data/engine_scripts',
-    html_report: 'backstop_data/html_report',
-    ci_report: 'backstop_data/ci_report',
+    bitmaps_reference: '{{ testDirectory }}/backstop_data/bitmaps_reference',
+    bitmaps_test: '{{ testDirectory }}/backstop_data/bitmaps_test',
+    engine_scripts: '{{ testDirectory }}/backstop_data/engine_scripts',
+    html_report: '{{ testDirectory }}/backstop_data/html_report',
+    ci_report: '{{ testDirectory }}/backstop_data/ci_report',
   },
   report: ['browser', 'json'],
   engine: 'chrome',
+  docker: runtimeConfig.docker,
   dockerCommandTemplate:
     'docker run --shm-size=2gb --rm -it --mount type=bind,source="{cwd}",target=/src backstopjs/backstopjs:{version} {backstopCommand} {args}',
 };

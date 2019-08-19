@@ -4,7 +4,7 @@ import fs from 'fs';
 import ncp from 'ncp';
 import path from 'path';
 import { promisify } from 'util';
-import execa from 'execa';
+import execa from 'execa'; // TODO: Remove unused dependency
 import Listr from 'listr';
 import { projectInstall } from 'pkg-install';
 

@@ -6,6 +6,8 @@ import chalk from 'chalk';
 import glob from 'glob';
 import nunjucks from 'nunjucks';
 import Listr from 'listr';
+import { install } from 'pkg-install';
+
 
 function checkForExistingFiles(filesToBeWritten) {
   filesToBeWritten.map(f => {
@@ -72,6 +74,7 @@ export async function askAvrQuestions() {
           `${localizedTestLocation}/**!(node_modules)/*.html`,
         );
         answers.testPaths = testFiles.map(p => p.replace(process.cwd(), ''));
+        answers.testDirectory = answers.testLocation;
       } else {
         // It's a single file, make sure it's an .html file
         const fileData = path.parse(localizedTestLocation);
@@ -83,6 +86,7 @@ export async function askAvrQuestions() {
           );
         } else {
           answers.testPaths = [localizedTestLocation.replace(process.cwd(), '')];
+          answers.testDirectory = path.resolve(localizedTestLocation).replace(process.cwd(), '');
         }
       }
     } else {
@@ -164,8 +168,6 @@ function modifyTemplateFiles(options) {
 }
 
 export async function generateAvrConfig(options) {
-  console.log(`Let's generate some backstop!`, options);
-
   options = {
     ...options,
     targetDirectory: options.targetDirectory || `${process.cwd()}`,
@@ -187,44 +189,34 @@ export async function generateAvrConfig(options) {
 
   const tasks = new Listr([
     {
-      title: 'Copy backstop config files',
+      title: 'Copy AVR config files',
       task: () => copyTemplateFiles(options),
     },
     {
-      title: 'Modify lint config files',
+      title: 'Modify AVR config files',
       task: () => modifyTemplateFiles(options),
     },
-    // {
-    //   title: 'Install eslint dependencies',
-    //   task: async () => {
-    //     let eslintDependencies = {
-    //       eslint: undefined,
-    //     };
-    //
-    //     if (options.sortClassMembers) {
-    //       eslintDependencies = {
-    //         ...eslintDependencies,
-    //         'eslint-plugin-sort-class-members': undefined,
-    //       };
-    //     }
-    //
-    //     if (options.linters.includes('prettier')) {
-    //       eslintDependencies = {
-    //         ...eslintDependencies,
-    //         'eslint-config-prettier': undefined,
-    //         'eslint-plugin-prettier': undefined,
-    //         prettier: undefined,
-    //       };
-    //     }
-    //
-    //     const { stdout } = await install(eslintDependencies, {
-    //       cwd: options.targetDirectory,
-    //       dev: true,
-    //       prefer: 'npm',
-    //     });
-    //     console.log(stdout);
-    //   },
-    // },
+    {
+      title: 'Update .gitignore',
+      task: () => {
+        // TODO: Update .gitignore to exclude runtime config and backstop_data files
+      }
+    }
+    {
+      title: 'Install AVR dependencies',
+      task: async () => {
+        let avrDependencies = {
+          backstopjs: undefined
+        };
+
+        const { stdout } = await install(avrDependencies, {
+          cwd: options.targetDirectory,
+          dev: true,
+          prefer: 'npm',
+        });
+        console.log(stdout);
+      },
+    },
   ]);
 
   await tasks.run();

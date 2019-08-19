@@ -20,7 +20,7 @@
     "@babel/preset-env": "^7.5.5",
     "@eightshapes/esds-avr-generator": "0.1.0",
     "@webcomponents/webcomponentsjs": "^2.2.10",
-    "browser-sync": "^2.26.7",
+    "backstopjs": "^4.1.12",
     "eslint": "^6.2.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
