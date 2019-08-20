@@ -20,6 +20,7 @@ export async function createReferenceImages(options) {
       title: 'Create AVR Reference Images',
       task: async () => {
         try {
+          // TODO: On first run when the Docker image isn't installed this can appear to hang as the Docker image downloads in the background. Find a way to stream the output so the Docker install is visible
           const backstopConfig = require(`${process.cwd()}/backstop.js`); // Don't require this until after runtime config is created
           const { stdout } = await execa.command(
             `cd ${process.cwd()} && npx backstop reference --config=backstop.js${
