@@ -18,7 +18,7 @@ const localConfig = {
     {
       label: '',
       width: 1024,
-      height: 768,
+      height: 100000, // Intentionally tall to include selectors at the bottom of long test pages
     },
   ],
   scenarios: scenarios,
@@ -35,7 +35,7 @@ const localConfig = {
   engineOptions: {
     args: ['--no-sandbox']
   },
-  asyncCaptureLimit: 5,
+  asyncCaptureLimit: 1, // Intentionally low to prevent capture errors. Increase at your own risk.
   asyncCompareLimit: 50,
   dockerCommandTemplate:
     'docker run --shm-size=2gb --rm -i --mount type=bind,source="{cwd}",target=/src backstopjs/backstopjs:{version} {backstopCommand} {args}',
