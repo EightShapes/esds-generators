@@ -31,7 +31,7 @@ const localConfig = {
     ci_report: '{{ testDirectory }}/backstop_data/ci_report',
   },
   report: ['html', 'json'],
-  engine: 'chrome',
+  engine: 'puppeteer',
   engineOptions: {
     args: ['--no-sandbox']
   },
