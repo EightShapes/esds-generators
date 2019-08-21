@@ -14,7 +14,7 @@ This will:
 1. Install `@eightshapes/esds-avr-generator` as a dev dependency in your project
 * Allow you to configure your test file location and any CSS selectors you use to wrap your test screenshots
 * Ask if you'd like to use Docker to run your tests (recommended)
-* Add scripts to `package.json` that allow you to set up, run and approve tests 
+* Add scripts to `package.json` that allow you to set up, run and approve tests
 
 ## Usage
 ### Capture reference images
@@ -48,7 +48,7 @@ The most recent test images will be promoted to reference images and will be use
 
 ## Advanced features
 ### Filtering
-Limiting the number of AVR tests during a run is important as the test suite grows larger. Use the `--filter` flag to limit which tests are run. 
+Limiting the number of AVR tests during a run is important as the test suite grows larger. Use the `--filter` flag to limit which tests are run.
 
 For example given the following test URLS:
 
@@ -72,7 +72,7 @@ npm run avr-approve -- --filter=button
 The initializer will configure your initial test options for you and create a `backstop.js` config file in the root of your project. If you need to add additional pages for testing, or you want to add other options, like testing across different viewports, refer to the [BackstopJS documentation](https://github.com/garris/BackstopJS#using-backstopjs)
 
 ### Running via Docker
-To run tests across multiple host platforms, use Docker. This ensures a consistent, sandboxed environment for the tests to run, regardless of the host's platform. 
+To run tests across multiple host platforms, use Docker. This ensures a consistent, sandboxed environment for the tests to run, regardless of the host's platform.
 
 Be sure to first install Docker Desktop (Free) for your platform:
 
@@ -110,7 +110,7 @@ This can be useful for debugging.
 You want to know what's happening under the hood? It's fairly straightforward:
 
 1. Before taking reference images or running tests, esds-avr spins up a local server using BrowserSync. This happens behind the scenes.
-* ESDS AVR then passes the browser sync server config to backstop so the test URLs can be configured to point to the local server.
-* Tests are run or reference images are captured
-* After backstop has finished, the local server is shut down
-* If tests were run, the default browser is launched showing the BackstopJS HTML report
+2. ESDS AVR then passes the browser sync server config to backstop so the test URLs can be configured to point to the local server.
+3. Tests are run or reference images are captured
+4. After backstop has finished, the local server is shut down
+5. If tests were run, the default browser is launched showing the BackstopJS HTML report
