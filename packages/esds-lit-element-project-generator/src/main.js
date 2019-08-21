@@ -12,6 +12,7 @@ const copy = promisify(ncp);
 const rename = promisify(fs.rename);
 
 function copyTemplateFiles(options) {
+  // TODO: Check if .gitignore is getting copied from template to source
  return copy(options.templateDirectory, options.targetDirectory, {
    clobber: false,
  });

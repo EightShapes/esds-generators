@@ -2,7 +2,9 @@
   "name": "[component-name]",
   "version": "0.1.0",
   "description": "",
-  "main": "src/[component-name].js",
+  "esnext": "src/[component-name].js",
+  "main": "dist/[component-name].js",
+  "module": "dist/[component-name]-legacy.js",
   "scripts": {
     "start": "npm run watch-build | browser-sync start --watch --config browser-sync-config.js --ignore 'src/**/*'",
     "build": "npm run build-ie && npm run build-esm && npm run build-styles",
@@ -12,7 +14,8 @@
     "watch-build": "npm run watch-build-ie | npm run watch-build-esm | npm run watch-build-styles",
     "watch-build-ie": "rollup --watch -c rollup.config.ie.js",
     "watch-build-esm": "rollup --watch -c rollup.config.js",
-    "watch-build-styles": "sass src:dist --watch"
+    "watch-build-styles": "sass src:dist --watch",
+    "prepack": "npm run build"
   },
   "license": "MIT",
   "devDependencies": {
