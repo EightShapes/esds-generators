@@ -54,7 +54,7 @@ module.exports = {
             { name: '/trigger.+Event/', type: 'method', sort: 'alphabetical' }
           ],
           'render-methods': [
-            { name: '/render.+/', type: 'method', sort: 'alphabetical' }
+            { name: '/render[A-Z].+/', type: 'method', sort: 'alphabetical' }
           ]
         },
         accessorPairPositioning: 'getThenSet',
