@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="../../dist/[component-name].css"/>
 
     <!-- Separate custom elements polyfill for Edge, IE11, etc. -->
+    <script>
+      window.ShadyCSS = { disableRuntime: true }; // Turn off ShadyCSS
+    </script>
     <script type="text/javascript" src="../../node_modules/@webcomponents/custom-elements/custom-elements.min.js"></script>
 
     <!-- The ESM "vanilla" version of the component for FF, Safari, Chrome and Edge -->
