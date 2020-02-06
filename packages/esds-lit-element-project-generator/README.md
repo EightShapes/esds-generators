@@ -16,7 +16,7 @@ npx @eightshapes/esds-lit-element-project-generator
 
 Follow the prompts.
 
-👆 This creates a pipeline that:
+👆 This creates a new component starter package that:
 
 * Provides lit-element as a base web component
 * Configures rollup to bundle your component source into three outputs:
