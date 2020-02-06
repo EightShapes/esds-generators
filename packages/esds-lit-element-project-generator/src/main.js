@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import fs from 'fs';
-import cpr from 'cpr';
+import ncp from 'ncp';
 import path from 'path';
 import { promisify } from 'util';
 import execa from 'execa';
@@ -8,7 +8,7 @@ import Listr from 'listr';
 import { projectInstall } from 'pkg-install';
 
 const access = promisify(fs.access);
-const copy = promisify(cpr);
+const copy = promisify(ncp);
 const rename = promisify(fs.rename);
 
 function copyTemplateFiles(options) {
