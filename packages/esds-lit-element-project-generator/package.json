@@ -4,7 +4,8 @@
   "description": "A CLI to generate Lit Element based Web Component Projects",
   "main": "src/index.js",
   "bin": {
-    "create-esds-lit-project": "bin/create-esds-lit-project"
+    "@eightshapes/esds-lit-element-project-generator": "bin/create-esds-lit-project",
+    "esds-lit-element-project-generator": "bin/create-esds-lit-project"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,7 +15,7 @@
   },
   "keywords": [
     "cli",
-    "create-esds-package"
+    "create-esds-lit-project"
   ],
   "files": [
     "bin/",
