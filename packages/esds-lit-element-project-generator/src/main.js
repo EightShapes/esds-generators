@@ -50,6 +50,12 @@ function renameCopiedFiles(options) {
     const newPath = oldPath.replace('src/component', `src/${options.normalizedComponentName}`);
     rename(oldPath, newPath);
   })
+
+  // Rename gitignore to .gitignore since NPM has a problem packing a .gitignore file: https://github.com/npm/npm/issues/3763
+
+  const oldPath = `${options.targetDirectory}/gitignore`;
+  const newPath = `${options.targetDirectory}/.gitignore`;
+  rename(oldPath, newPath);
 }
 
 export async function createProject(options) {
