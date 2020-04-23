@@ -29,7 +29,7 @@ package.json
 
 {
   "scripts": {
-    "compile-tokens": "compile-tokens --watch --src=path/to/tokens.yaml` --dest=path/to/desired/destination --token-namespace=myds --format=json --format=scss"
+    "compile-tokens": "compile-tokens --watch --src=path/to/tokens.yaml --dest=path/to/desired/destination --token-namespace=myds --format=json --format=scss"
   }
 }
 ```
